@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 /**
  * Created by Syril on 18-05-2018.
  */
+// marker for any class that fulfills the role or stereotype (also known as Data Access Object or DAO) of a repository.
 @Repository
 @Transactional
 public class UserDAOService {

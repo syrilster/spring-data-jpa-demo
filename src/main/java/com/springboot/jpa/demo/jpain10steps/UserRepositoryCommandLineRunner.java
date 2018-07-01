@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Created by Syril on 18-05-2018.
  */
@@ -24,5 +27,11 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
         User user = new User("Anju", "Admin");
         userRepository.save(user);
         logger.info("New user has been created " + user);
+
+        Optional<User> userWithIdOne = userRepository.findById(1L);
+        logger.info("User with Id one retrieved " + userWithIdOne);
+
+        List<User> userList = userRepository.findAll();
+        logger.info("All users list " + userList);
     }
 }
