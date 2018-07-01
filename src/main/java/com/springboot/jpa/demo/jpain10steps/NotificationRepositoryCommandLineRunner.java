@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.Random;
 
 @Component
 public class NotificationRepositoryCommandLineRunner implements CommandLineRunner {
@@ -40,20 +41,30 @@ public class NotificationRepositoryCommandLineRunner implements CommandLineRunne
         smsNotification.setPhoneNumber("9945434485");
         smsNotification.setNotificationType(notificationType.get());
         notificationRepository.save(smsNotification);
-        logger.info("Notification in the system is of type --> " + notificationRepository.findAll().get(0).getNotificationType().getLabel());
-
     }
 
     private void sendEmailNotification() {
         Optional<NotificationType> emailNotificationType = notificationTypeRepository
                 .findById(Integer.valueOf(NotificationType.NOTIFICATION_TYPE_EMAIL));
-        EmailNotification emailNotification = new EmailNotification();
-        emailNotification.setFirstName("Anju");
-        emailNotification.setLastName("Ravindran");
-        emailNotification.setCreatedOn(new Date());
-        emailNotification.setEmailAddress("anju@hotmail.com");
-        emailNotification.setNotificationType(emailNotificationType.get());
-        notificationRepository.save(emailNotification);
-        logger.info("Notification in the system is of type --> " + notificationRepository.findAll().get(0).getNotificationType().getLabel());
+        for (int i = 0; i < 2; i++) {
+            EmailNotification emailNotification = new EmailNotification();
+            emailNotification.setFirstName("Anju");
+            emailNotification.setLastName(getToken(8));
+            emailNotification.setCreatedOn(new Date());
+            emailNotification.setEmailAddress(getToken(6) + "@hotmail.com");
+            emailNotification.setNotificationType(emailNotificationType.get());
+            notificationRepository.save(emailNotification);
+        }
+    }
+
+    private static final Random random = new Random();
+    private static final String CHARS = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!@#$";
+
+    public static String getToken(int length) {
+        StringBuilder token = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            token.append(CHARS.charAt(random.nextInt(CHARS.length())));
+        }
+        return token.toString();
     }
 }
