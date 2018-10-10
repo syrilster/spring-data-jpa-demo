@@ -9,7 +9,7 @@ Parameters:
     Type: String
 Resources:
   Service:
-    Type: 'AWS::ECS::Service'
+    Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref Cluster
       DesiredCount: !Ref DesiredCount
