@@ -1,0 +1,32 @@
+Parameters:
+  Cluster:
+    Type: String
+  DesiredCount:
+    Type: String
+  Image:
+    Type: String
+  Role:
+    Type: String
+Resources:
+  Service:
+    Type: 'AWS::ECS::Service'
+    Properties:
+      Cluster: !Ref Cluster
+      DesiredCount: !Ref DesiredCount
+      Role: !Ref Role
+      TaskDefinition: !Ref TaskDefinition
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: Service
+      ContainerDefinitions:
+        - Name: node
+          Image: !Ref Image
+          Memory: 512
+          PortMappings:
+            - ContainerPort: 8080
+            - HostPort: 8080
+
+
+

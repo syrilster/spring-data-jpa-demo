@@ -1,34 +1,39 @@
 package com.springboot.jpa.demo.jpain10steps;
 
 import com.springboot.jpa.demo.jpain10steps.entity.JoinedInheritance.EmailNotification;
+import com.springboot.jpa.demo.jpain10steps.entity.JoinedInheritance.Notification;
 import com.springboot.jpa.demo.jpain10steps.entity.JoinedInheritance.NotificationType;
 import com.springboot.jpa.demo.jpain10steps.entity.JoinedInheritance.SmsNotification;
 import com.springboot.jpa.demo.jpain10steps.service.NotificationRepository;
 import com.springboot.jpa.demo.jpain10steps.service.NotificationTypeRepository;
-import com.springboot.jpa.demo.jpain10steps.service.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-@Component
-public class NotificationRepositoryCommandLineRunner implements CommandLineRunner {
-    private static final Logger logger = LoggerFactory.getLogger(NotificationRepositoryCommandLineRunner.class);
+@RestController
+public class NotificationController {
+
+    Logger logger = LoggerFactory.getLogger(NotificationController.class);
 
     @Autowired
     private NotificationRepository notificationRepository;
     @Autowired
     private NotificationTypeRepository notificationTypeRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
-        //sendSMSNotification();
-        //sendEmailNotification();
+
+    @GetMapping("/notifications")
+    public List<Notification> getNotifications() {
+        sendEmailNotification();
+        sendSMSNotification();
+        List<Notification> notificationList = notificationRepository.findAll();
+        return notificationList;
     }
 
     private void sendSMSNotification() {
@@ -46,15 +51,14 @@ public class NotificationRepositoryCommandLineRunner implements CommandLineRunne
     private void sendEmailNotification() {
         Optional<NotificationType> emailNotificationType = notificationTypeRepository
                 .findById(Integer.valueOf(NotificationType.NOTIFICATION_TYPE_EMAIL));
-        for (int i = 0; i < 2; i++) {
-            EmailNotification emailNotification = new EmailNotification();
-            emailNotification.setFirstName("Anju");
-            emailNotification.setLastName(getToken(8));
-            emailNotification.setCreatedOn(new Date());
-            emailNotification.setEmailAddress(getToken(6) + "@hotmail.com");
-            emailNotification.setNotificationType(emailNotificationType.get());
-            notificationRepository.save(emailNotification);
-        }
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.setFirstName("Anju");
+        emailNotification.setLastName("Ravindran");
+        emailNotification.setCreatedOn(new Date());
+        emailNotification.setEmailAddress("anju.ravindran@hotmail.com");
+        emailNotification.setNotificationType(emailNotificationType.get());
+        notificationRepository.save(emailNotification);
+
     }
 
     private static final Random random = new Random();
@@ -67,4 +71,5 @@ public class NotificationRepositoryCommandLineRunner implements CommandLineRunne
         }
         return token.toString();
     }
+
 }
