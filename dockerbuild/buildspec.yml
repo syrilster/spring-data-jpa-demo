@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email --region us-west-2)
+      - TAG="$(echo $CODE_BUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - echo Build started on `date`
+  build:
+    commands:
+      - docker build --tag "${REPOSITORY}:${TAG}" .
+  post_build:
+    commands:
+      - docker push "${REPOSITORY}:${TAG}"
+      - printf '{"Image":"%s:%s"}' ${REPOSITORY} ${TAG} > build.json
+artifacts:
+  files:
+    - build.json
+    - service.yml
+    - production.json
+  discard-paths: yes

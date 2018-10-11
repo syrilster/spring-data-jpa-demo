@@ -1,20 +1,13 @@
 version: 0.2
 phases:
-  pre_build:
-    commands:
-      - $(aws ecr get-login --no-include-email --region us-west-2)
-      - TAG="$(echo $CODE_BUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-      - echo Build started on `date`
   build:
     commands:
-      - docker build --tag "${REPOSITORY}:${TAG}" .
+    - echo Build started on `date`
+    - mvn test
   post_build:
     commands:
-      - docker push "${REPOSITORY}:${TAG}"
-      - printf '{"Image":"%s:%s"}' ${REPOSITORY} ${TAG} > build.json
+    - echo Build completed on `date`
+    - mvn package
 artifacts:
   files:
-    - build.json
-    - service.yml
-    - production.json
-  discard-paths: yes
+  - target/jpa-in-10-steps-0.0.1-SNAPSHOT.jar
