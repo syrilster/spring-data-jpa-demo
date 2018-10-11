@@ -8,11 +8,12 @@ phases:
       - echo Build started on `date`
   build:
     commands:
-      - docker build -t ${IMAGE_NAME}:${TAG} --file DockerFile .
+      - docker build -t $IMAGE_NAME --file DockerFile .
+      - docker tag $IMAGE_NAME:$IMAGE_TAG $REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
   post_build:
     commands:
-      - docker push ${REPOSITORY}/${TAG}
-      - printf '{"Image":"%s:%s"}' ${REPOSITORY} ${TAG} > build.json
+      - docker push $REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
+      - printf '{"Image":"%s:%s"}' $REPOSITORY $IMAGE_TAG > build.json
 artifacts:
   files:
     - build.json
