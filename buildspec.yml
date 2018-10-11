@@ -7,7 +7,7 @@ phases:
       - echo Build started on `date`
   build:
     commands:
-      - docker --tag "${REPOSITORY}:${TAG}" .
+      - docker build --tag "${REPOSITORY}:${TAG}" .
   post_build:
     commands:
       - docker push "${REPOSITORY}:${TAG}"
