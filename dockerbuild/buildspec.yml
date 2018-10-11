@@ -12,10 +12,9 @@ phases:
   post_build:
     commands:
       - docker push $REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
-      - printf '{"Image":"%s:%s"}' $REPOSITORY $IMAGE_TAG > build.json
+      - printf '{"Image":"%s/%s:%s"}' $REPOSITORY $IMAGE_NAME $IMAGE_TAG > build.json
 artifacts:
   files:
     - build.json
     - service.yml
     - production.json
-  discard-paths: yes

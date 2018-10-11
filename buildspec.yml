@@ -13,3 +13,5 @@ artifacts:
     - target/jpa-in-10-steps-0.0.1-SNAPSHOT.jar
     - dockerbuild/buildspec.yml
     - DockerFile
+    - service.yml
+    - production.json
