@@ -7,10 +7,10 @@ phases:
       - echo Build started on `date`
   build:
     commands:
-      - docker build -t "${REPOSITORY}:${TAG}" --file DockerFile .
+      - docker build -t "spring-data-jpa:${TAG}" --file DockerFile .
   post_build:
     commands:
-      - docker push "${REPOSITORY}:${TAG}"
+      - docker push "${REPOSITORY}"/"${TAG}"
       - printf '{"Image":"%s:%s"}' ${REPOSITORY} ${TAG} > build.json
 artifacts:
   files:
