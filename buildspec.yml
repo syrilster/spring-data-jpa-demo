@@ -7,7 +7,6 @@ phases:
       - echo Build started on `date`
   build:
     commands:
-      - mvn clean install docker:build
       - docker tag spring-boot-jpa-demo spring-boot-jpa-demo:${TAG}
   post_build:
     commands:
