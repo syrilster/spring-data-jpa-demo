@@ -2,7 +2,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - $(aws ecr get-login)
+      - $(aws ecr get-login --no-include-email --region us-west-2)
       - TAG="$(echo $CODE_BUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
       - echo Build started on `date`
   build:
