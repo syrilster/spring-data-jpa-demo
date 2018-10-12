@@ -25,8 +25,8 @@ Resources:
           Image: !Ref Image
           Memory: 512
           PortMappings:
-            - ContainerPort: 8080
-            - HostPort: 8080
+            - ContainerPort: 80
+            - HostPort: 80
 
 
 
