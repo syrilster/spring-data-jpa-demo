@@ -29,6 +29,9 @@ public abstract class Notification {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private NotificationType notificationType;
 
+    @Column(name = "message")
+    private String message;
+
     public Notification() {
     }
 
@@ -70,5 +73,13 @@ public abstract class Notification {
 
     public void setNotificationType(NotificationType notificationType) {
         this.notificationType = notificationType;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

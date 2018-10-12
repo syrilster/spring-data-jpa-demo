@@ -45,6 +45,7 @@ public class NotificationController {
         smsNotification.setCreatedOn(new Date());
         smsNotification.setPhoneNumber("9945434485");
         smsNotification.setNotificationType(notificationType.get());
+        smsNotification.setMessage("Hello Code Pipeline !!");
         notificationRepository.save(smsNotification);
     }
 
