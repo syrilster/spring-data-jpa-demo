@@ -15,4 +15,3 @@ artifacts:
     - DockerFile
     - service.yml
     - production.json
-    - imagedefinitions.json
