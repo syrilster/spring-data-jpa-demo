@@ -18,3 +18,4 @@ artifacts:
     - build.json
     - service.yml
     - production.json
+    - imagedefinitions.json
