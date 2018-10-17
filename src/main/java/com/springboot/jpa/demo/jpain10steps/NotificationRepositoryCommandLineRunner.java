@@ -5,7 +5,6 @@ import com.springboot.jpa.demo.jpain10steps.entity.JoinedInheritance.Notificatio
 import com.springboot.jpa.demo.jpain10steps.entity.JoinedInheritance.SmsNotification;
 import com.springboot.jpa.demo.jpain10steps.service.NotificationRepository;
 import com.springboot.jpa.demo.jpain10steps.service.NotificationTypeRepository;
-import com.springboot.jpa.demo.jpain10steps.service.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
